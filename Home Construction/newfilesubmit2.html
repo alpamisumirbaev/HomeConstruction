@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Collection Form</title>
+    <style>
+        /* General Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Body Styling with Great Background */
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1f4037, #99f2c8); /* Gradient background */
+            color: #fff;
+            overflow: hidden;
+        }
+
+        /* Form Styling */
+        form {
+            background: rgba(0, 0, 0, 0.5); /* Slightly transparent background */
+            padding: 30px 50px;
+            border-radius: 15px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-in-out;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        form input {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: none;
+            border-bottom: 2px solid #fff;
+            background: transparent;
+            color: #fff;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        form input:focus {
+            outline: none;
+            border-bottom: 2px solid #f39c12; /* Highlight color on focus */
+        }
+
+        form input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Hide number spinner */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield; /* For Firefox */
+        }
+
+        /* Anchor Styling */
+        form a {
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            background: transparent;
+            border: 2px solid #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        form a:hover {
+            background: #f39c12;
+            color: #000;
+            border-color: #f39c12;
+            box-shadow: 0 0 10px #f39c12, 0 0 25px #f39c12, 0 0 50px #f39c12;
+        }
+
+        form a:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.5s;
+            z-index: 1;
+        }
+
+        form a:hover:after {
+            left: 0;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <form name="submit-to-google-sheet">
+        <input type="text" name="name" id="name" placeholder="Name" required autocomplete="off">
+        <input type="email" name="email" placeholder="Email" required autocomplete="off">
+        <input type="number" name="phone" id="phone" placeholder="Phone" required autocomplete="off">
+        <input type="hidden" name="project number" id="project number" value="2">
+        
+        <!-- Use <a> tag instead of <button> -->
+        <a href="#" id="submit-link">Send</a>
+        
+        <!-- Alerts -->
+        <div id="success-alert" style="display: none; color: green;">Your order has been successfully submitted!</div>
+        <div id="error-alert" style="display: none; color: red;">There was an issue with your submission. Please try again.</div>
+    </form>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxETTkQ70cwdfMyufLTZecXCAHfjK05fU6iTssFMV5D8QL28Eyc50Icvb9JgEDtQeA6/exec';
+        const form = document.forms['submit-to-google-sheet'];
+        const successAlert = document.getElementById('success-alert');
+        const errorAlert = document.getElementById('error-alert');
+        const submitLink = document.getElementById('submit-link');
+
+        submitLink.addEventListener('click', e => {
+            e.preventDefault(); // Prevent the default anchor behavior (page navigation)
+            
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => {
+                    successAlert.style.display = 'block';
+                    errorAlert.style.display = 'none';
+                    form.reset(); // Optionally reset the form
+                    setTimeout(() => { successAlert.style.display = 'none'; }, 3000); // Hide the success message after 3 seconds
+                })
+                .catch(error => {
+                    errorAlert.style.display = 'block';
+                    successAlert.style.display = 'none';
+                    setTimeout(() => { errorAlert.style.display = 'none'; }, 3000); // Hide the error message after 3 seconds
+                    console.error('Error!', error.message);
+                });
+        });
+    </script>
+</body>
+</html>
