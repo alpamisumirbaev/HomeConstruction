@@ -11,6 +11,7 @@ body {
     color: #222222; /* Darker gray for better contrast */
     background-color: #eaf8f7; /* Light teal for a fresh look */
     line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 /* Header Styling */
@@ -52,7 +53,7 @@ section h2 {
     padding: 20px;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
 }
 
 .project:hover {
@@ -126,4 +127,145 @@ footer {
 
 .hidden{
     display: none;
+}
+
+/* =================================
+   Theme Switcher & Dark Mode
+   ================================= */
+
+#theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #ff6600; /* Vibrant orange */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#theme-toggle:hover {
+    background-color: #cc5200; /* Darker orange */
+    transform: scale(1.1);
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-mode header {
+    background-color: #004d4d; /* Darker teal */
+}
+
+body.dark-mode section h2 {
+    color: #00b3b3; /* Lighter teal for headings */
+}
+
+body.dark-mode .project {
+    background-color: #2c2c2c; /* Darker card background */
+    border-color: #444;
+    color: #e0e0e0;
+}
+
+body.dark-mode .project h3 {
+    color: #ff8533; /* Slightly lighter orange */
+}
+
+body.dark-mode .project p {
+    color: #b3b3b3; /* Lighter gray for paragraph */
+}
+
+body.dark-mode footer {
+    background-color: #002626; /* Even darker teal */
+    border-top-color: #004d4d;
+}
+
+/* =================================
+   Description Page Specific Styles
+   ================================= */
+
+.content {
+    max-width: 1000px;
+    margin: 40px auto;
+    background-color: #ffffff; /* White background for content */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .content {
+    background-color: #2c2c2c; /* Dark background for content in dark mode */
+    color: #e0e0e0;
+}
+
+.content h1,
+.content h2 {
+    text-align: center;
+    color: #008080; /* Teal to match main theme */
+    margin-bottom: 20px;
+}
+
+body.dark-mode .content h1,
+body.dark-mode .content h2 {
+    color: #00b3b3; /* Lighter teal in dark mode */
+}
+
+
+.content p {
+    font-size: 1.1rem;
+    color: #444;
+    text-align: justify;
+    margin-bottom: 20px;
+}
+
+body.dark-mode .content p {
+    color: #b3b3b3;
+}
+
+
+.content ul {
+    margin: 20px 0;
+    padding-left: 20px;
+    color: #555;
+}
+
+body.dark-mode .content ul {
+    color: #a0aec0;
+}
+
+
+.content ul li {
+    margin-bottom: 10px;
+}
+
+/* Scoped button style for description pages to avoid conflicts */
+.content .order-button {
+    display: block;
+    text-align: center;
+    background-color: #ff6600; /* Match main theme orange */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    margin: 30px auto 0;
+    max-width: 200px;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.content .order-button:hover {
+    background-color: #cc5200;
+    transform: scale(1.05);
 }
